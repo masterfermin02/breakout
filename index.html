@@ -8,9 +8,9 @@
 		// this is a quick way to make projects built on pervious versions of EaselJS run without extensive modifications
 		var createjs = window;
 	</script>
-	<script type="text/javascript" src="https://code.createjs.com/1.0.0/preloadjs.min.js"></script>
-	<script type="text/javascript" src="https://code.createjs.com/1.0.0/soundjs.min.js"></script>
-	<script src="https://code.createjs.com/1.0.0/tweenjs.min.js"></script>
+	<script type="text/javascript" src="//code.createjs.com/1.0.0/preloadjs.min.js"></script>
+	<script type="text/javascript" src="//code.createjs.com/1.0.0/soundjs.min.js"></script>
+	<script src="//code.createjs.com/1.0.0/tweenjs.min.js"></script>
 	
 	<script>
 
@@ -78,11 +78,11 @@
 			if (window.top != window) {
 				document.getElementById("header").style.display = "none";
 			}
-			if (!SoundJS.checkPlugin(true)) {
+			//if (!SoundJS.checkPlugin(true)) {
 				//document.getElementById("error").style.display = "block";
-				document.getElementById("content").style.display = "none";
-				return;
-			}
+				//document.getElementById("content").style.display = "none";
+				//return;
+			//}
 
 			// begin loading content (only sounds to load)
 			var manifest = [
@@ -94,13 +94,12 @@
 				{id:"music", src:"../breakout/assets/18-machinae_supremacy-lord_krutors_dominion.mp3|../breakout/assets/18-machinae_supremacy-lord_krutors_dominion.ogg"}
 			];
 
-			preload = new PreloadJS();
+			preload = new createjs.LoadQueue();
 			preload.onComplete = doneLoading;
-			preload.installPlugin(SoundJS);
-			preload.loadManifest(manifest);
+			//preload.installPlugin(SoundJS);
+			//preload.loadManifest(manifest);
 
-			canvas = document.getElementById("demoCanvas");
-			stage = new createjs.Stage(canvas);
+			stage = new createjs.Stage("demoCanvas");
 			addBricks();
 			addPaddle();
 			addBall();
@@ -149,7 +148,7 @@
 			messageField.text = "Welcome:  Click to play";
 
 			// start the music
-			SoundJS.play("music", SoundJS.INTERUPT_NONE);
+			//SoundJS.play("music", SoundJS.INTERUPT_NONE);
 
 			watchRestart();
 		}
@@ -265,9 +264,9 @@
 						vx = -vx;
 					}
 					addScore(10 * hits);
-					SoundJS.play("laser",SoundJS.INTERUPT_LATE);
-					if( hits > 2)
-						SoundJS.play("combo",SoundJS.INTERUPT_LATE);
+					//SoundJS.play("laser",SoundJS.INTERUPT_LATE);
+					//if( hits > 2)
+					//	SoundJS.play("combo",SoundJS.INTERUPT_LATE);
 				}
 			}
 			var pos = paddle.globalToLocal(ball.x,ball.y);
