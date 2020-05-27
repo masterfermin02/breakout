@@ -10,7 +10,7 @@
 	</script>
 	<script type="text/javascript" src="//code.createjs.com/1.0.0/preloadjs.min.js"></script>
 	<script type="text/javascript" src="//code.createjs.com/1.0.0/soundjs.min.js"></script>
-	<script src="//code.createjs.com/1.0.0/tweenjs.min.js"></script>
+	<script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
 	
 	<script>
 
@@ -93,13 +93,14 @@
 				{id: "combo", src:"../breakout/assets/C-C-C-Combo Breaker!!.mp3|../breakout/assets/C_C_C_Combo_Breaker_.ogg"},
 				{id:"music", src:"../breakout/assets/18-machinae_supremacy-lord_krutors_dominion.mp3|../breakout/assets/18-machinae_supremacy-lord_krutors_dominion.ogg"}
 			];
-
-			preload = new createjs.LoadQueue();
-			preload.onComplete = doneLoading;
+			
+			//preload = new createjs.LoadQueue();
+			//preload.onComplete = doneLoading;
 			//preload.installPlugin(SoundJS);
 			//preload.loadManifest(manifest);
 
-			stage = new createjs.Stage("demoCanvas");
+			canvas = document.getElementById("demoCanvas");
+			stage = new createjs.Stage(canvas);
 			addBricks();
 			addPaddle();
 			addBall();
@@ -121,15 +122,19 @@
 			if(Math.floor((Math.random()* 2)) == 0){
 				vx = -vx;
 			}
+			
+			// set the Ticker to 30fps 
+  			createjs.Ticker.setFPS(30);
+			createjs.Ticker.addEventListener('tick', function(event) {
+				stage.update(); 
+			});
 
-			createjs.Ticker.addListener(window);
-			createjs.Ticker.setFPS(50);
 			stage.onMouseMove = function(evt) {
 				paddle.x = evt.stageX;
 			}
 
 			loadingInterval = setInterval(updateLoading, 200);
-						
+			doneLoading();			
 		}
 
 		function stop() {
